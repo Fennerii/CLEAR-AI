@@ -57,44 +57,7 @@ pip install -r requirements.txt
 
 ---
 
-## Training (Desktop)
-
-### 1. Add your dataset
-
-Place your Roboflow dataset inside the project:
-
-```
-datasets/
-  recyclables/
-    train/
-    valid/
-    test/
-    data.yaml
-```
-
-### 2. Run training
-
-```
-python3 train.py
-```
-
-### 3. Copy the trained model to project root
-
-```
-cp runs/detect/train/weights/best.pt best.pt
-```
-
----
-
-## Detection (ThinkPad)
-
-### 1. Pull the latest model
-
-```
-git pull
-```
-
-### 2. Run webcam detection
+### 7. Run webcam detection
 
 ```
 source CLEAR-env/bin/activate
