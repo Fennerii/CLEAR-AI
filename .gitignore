@@ -1,0 +1,7 @@
+CLEAR-env/
+__pycache__/
+*.pt
+!best.pt
+.env
+runs/
+datasets/
