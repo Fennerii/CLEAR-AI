@@ -1,10 +1,9 @@
 import cv2
 from ultralytics import YOLO
 
-model = YOLO('yolo26n.pt')
+model = YOLO('best.pt')
 
-Recyclable_items = ['bottle', 'can', 'box']
-
+Recyclable_items = ['Fork', 'can', 'colored plastic bottle', 'paper', 'plastic bottle', 'straw', 'tuna']
 def detection(frame):
     results = model(frame)
     detected_objects = []
