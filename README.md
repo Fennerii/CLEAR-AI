@@ -1,5 +1,4 @@
 # CLEAR-AI
-# CLEAR-AI
 
 An AI-powered pollution prevention and waste-sorting tool for community and healthcare settings.
 
