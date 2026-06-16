@@ -1,39 +1,18 @@
-import cv2
-from ultralytics import YOLO
+# imports || These are libraries are are going to use within the file
+import cv2 
+# OpenCV handles image processing, When the image arrives from the front end as raw btyes, 
+# OpenCV coverts them into something YOLO can read. Doc:  https://docs.ultralytics.com/modes/predict 
 
-model = YOLO('best.pt')
+import numpy as np # Numerical computing library, Pixels are something Numpy can store and manipulate.
+#Doc: https://docs.ultralytics.com/modes/predict. cv2.imread('image.jpg')	np.ndarray	HWC format with RGB channels uint8 (0-255).
 
-Recyclable_items = ['Fork', 'can', 'colored plastic bottle', 'paper', 'plastic bottle', 'straw', 'tuna']
-def detection(frame):
-    results = model(frame)
-    detected_objects = []
-    for r in results:
-        for box in r.boxes:
-            class_id = int(box.cls[0])
-            confidence = box.conf[0].item()
-            label = model.names[class_id]
-            if confidence > 0.5 and label in Recyclable_items:
-                detected_objects.append(label)
-                x1, y1, x2, y2 = map(int, box.xyxy[0])
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-                cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
-    return frame, detected_objects
+from ultralytics import YOLO #Imports YOLO from ultralytics.
+#main object used to load and process images. Docs: https://docs.ultralytics.com/usage/python
 
-def main():
-    cap = cv2.VideoCapture(0)
-    while True:
-        ret, frame = cap.read()
-        if not ret:
-            break
-        frame, detected_objects = detection(frame)
-        cv2.imshow("CLEAR-AI", frame)
-        if detected_objects:
-            print("Detected:", detected_objects)
-        key = cv2.waitKey(1)
-        if key == ord('q'):
-            break
-    cap.release()
-    cv2.destroyAllWindows()
+# || End of Imports ||
 
-if __name__ == "__main__":
-    main()
+#Model ||
+model = YOLO("best.pt") #Trained Model that we assign to the model variable
+#End of Model || 
+
+
