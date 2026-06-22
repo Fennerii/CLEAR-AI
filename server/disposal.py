@@ -11,7 +11,6 @@ from langchain_community.document_loaders import PyPDFLoader, Docx2txtLoader, BS
 # Docs: https://python.langchain.com/docs/integrations/document_loaders/
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-<<<<<<< HEAD
 # Splits large documents into smaller chunks for vector storage
 # Docs: https://python.langchain.com/docs/how_to/recursive_text_splitter/
 
@@ -125,12 +124,12 @@ def build_vectorstore(docs: list) -> Chroma:
 
 
 # || Start of Initialization ||
-KNOWLEDGE_BASE_PATH = "backend/knowledge_base"
+KNOWLEDGE_BASE_PATH = "server/docs"
 # Path to the folder containing your PDFs, DOCX and HTML files
 # Written in all caps because it is a constant — never changes while the program runs
 
-print("Loading knowledge base...")
-docs = load_documents(KNOWLEDGE_BASE_PATH)
+print("Loading knowledge base")
+docs = load_documents(server/docs)
 # Calls load_documents on startup — loads all files once into memory
 
 vectorstore = build_vectorstore(docs)
@@ -143,6 +142,7 @@ retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 # search_kwargs={"k": 3} means return the 3 most relevant chunks per search
 # k=3 is a balance — enough context for Ollama without overwhelming the prompt
 # Docs: https://python.langchain.com/docs/concepts/retrievers/
+
 # || End of Initialization ||
 
 
@@ -150,7 +150,6 @@ retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 model = OllamaLLM(model="llama3.2")
 # Loads llama3.2 through Ollama as the LLM
 # OllamaLLM is LangChain's wrapper around the Ollama library
-# Runs completely locally — no API keys, no internet required
 # Docs: https://python.langchain.com/docs/integrations/llms/ollama/
 
 template = """You are CLEAR-AI, a waste disposal assistant for community and healthcare settings.
@@ -238,14 +237,3 @@ def get_disposal_instructions(detections: list) -> str:
     # Returns the disposal instructions string back to main.py
     # main.py sends it to Vue as part of the JSON response
 # || End of Main Function ||
-=======
-# Splits largs docs into smaller chunks to be processed by the LLM
-# Docs: https://python.langchain.com/docs/how_to/recursive_text_splitter/
-
-from langchain_chroma import Chroma
-# Vector Sotre - stores documents and chunks as vectors
-# Docs: https://python.langchain.com/docs/integrations/vectorstores/chroma/
-
-from langchain_ollama import OllamaEmbeddings, OllamaLLM
-# OllamaEmbeddings -> Convers chunks into vectors locally using llama3.2
->>>>>>> refs/remotes/origin/main
