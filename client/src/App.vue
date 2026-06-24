@@ -11,6 +11,37 @@ const dots = Array.from({ length: 60 }, () => ({
   duration: 8 + Math.random() * 12,
   delay: Math.random() * -20
 }))
+
+import {ref} from 'vue'
+// Imports Vue ref function, Ref watches for refreshes and re-renders
+// Docs: https://vuejs.org/api/reactivity-core.html#ref
+
+const fileInput = ref(null)
+//Creates a const variable that is set to null, it holds a reference to input file
+
+const hasUploaded = ref(false)
+// Conontrols when Disposal.vue shows up in the template. Boolean
+
+const uploadedImage = ref(null)
+//Holds the img until we can display it with the <img> tag
+
+const detections = ref([])
+// Holds Data from Detections in the back end
+
+const instructions = ref('')
+//empty string to be filled in with ollama
+
+const isLoading = ref(false)
+//Boolean to track whether a request is loading ^add a spinny wheel or smth^
+
+function triggerFileInput(){
+    fileInput.value.click()
+}
+// file picker function
+
+
+
+
 </script>
 
 <template>
