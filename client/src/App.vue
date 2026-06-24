@@ -1,47 +1,133 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+const colors = ["#158fd4","#0e4a80","#9daecc"]
+
+const dots = Array.from({ length: 60 }, () => ({
+  top: Math.random() * 100,
+  left: Math.random() * 100,
+  size: 10 + Math.random() * 6,
+  color: colors[Math.floor(Math.random() * colors.length)],
+  duration: 8 + Math.random() * 12,
+  delay: Math.random() * -20
+}))
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <section class="hero is-fullheight particle-bg">
+    <div
+      v-for="(dot, i) in dots"
+      :key="i"
+      class="dot"
+      :style="{
+        top: dot.top + '%',
+        left: dot.left + '%',
+        width: dot.size + 'px',
+        height: dot.size + 'px',
+        backgroundColor: dot.color,
+        animationDuration: dot.duration + 's',
+        animationDelay: dot.delay + 's'
+      }"
+    ></div>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-vcentered is-centered cards-row">
+
+          <div class="column is-narrow">
+            <div class="glass-card name-card">
+              <h1 class="title has-text-centered is-size-1  is-family-monospace " style="color: #1a1a1a;">CLEAR-AI</h1>
+              <p class="subtitle" style="color: #444;">Making the World A Cleaner Place</p>
+            </div>
+          </div>
+
+          <div class="column is-narrow">
+            <div class="glass-card upload-card">
+              <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+              <p class="upload-text">Drag and drop an image</p>
+              <button class="button is-light browse-btn">Browse files</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </section>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+.particle-bg {
+  background-color: #ffffff;  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.dot {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.7;
+  pointer-events: none;
+  animation-name: float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+@keyframes float {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(15px, -20px); }
+  50%  { transform: translate(-10px, -35px); }
+  75%  { transform: translate(-20px, -10px); }
+  100% { transform: translate(0, 0); }
 }
+
+.cards-row {
+  position: relative;
+  z-index: 1;
+}
+
+.glass-card {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.35);
+  border: 2px solid  	#9daecc;
+  border-radius: 24px;
+  box-shadow: 0 4px 12px #01050b;
+}
+
+.name-card {
+  width: 380px;
+  height: 560px;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.upload-card {
+  width: 320px;
+  height: 220px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.upload-icon {
+  font-size: 36px;
+  color: #444;
+}
+
+.upload-text {
+  font-size: 14px;
+  color: #444;
+}
+
+.browse-btn {
+  margin-top: 0.5rem;
+  background-color: lightgray;
+}
+
 </style>
