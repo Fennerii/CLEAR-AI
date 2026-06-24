@@ -1,4 +1,6 @@
 <script setup>
+import Disposal from './components/Disposal.vue'
+
 const colors = ["#1b75bc", "#39b54a", "#fbb03b", "#ff1d25", "#4d4d4d", "#754c24", "#ffffff"];
 
 const dots = Array.from({ length: 60 }, () => ({
@@ -54,11 +56,14 @@ const dots = Array.from({ length: 60 }, () => ({
       </div>
     </div>
   </section>
+ <Disposal />
 </template>
 
 <style scoped>
+
 .particle-bg {
-  background-color: #ffffff;  min-height: 100vh;
+  background-color: #ffffff;  
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
