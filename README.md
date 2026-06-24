@@ -56,16 +56,14 @@ pip install -r requirements.txt
 
 ---
 
-### 7. Run webcam detection
-
+### 7. Run Server
 ```
-source CLEAR-env/bin/activate
-python3 main.py
+uvicorn main:app --reload
 ```
-
-Press `q` to quit.
-
----
+### 8. Run Client
+```
+npm run dev
+```
 
 ## Classes
 
