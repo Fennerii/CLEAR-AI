@@ -17,7 +17,7 @@ from detector import detect_image
 # This is how main.py connects to the YOLO detection logic — without this import,
 # main.py has no way to run object detection.
 
-from disposer import get_disposal_instructions
+from disposal import get_disposal_instructions
 # Imports the get_disposal_instructions function from disposer.py
 # This connects main.py to the RAG / Ollama logic for generating disposal instructions.
 # || End of Imports ||
