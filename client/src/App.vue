@@ -1,5 +1,5 @@
 <script setup>
-const colors = ["#158fd4","#0e4a80","#9daecc"]
+const colors = ["#1b75bc", "#39b54a", "#fbb03b", "#ff1d25", "#4d4d4d", "#754c24", "#ffffff"];
 
 const dots = Array.from({ length: 60 }, () => ({
   top: Math.random() * 100,
@@ -34,16 +34,19 @@ const dots = Array.from({ length: 60 }, () => ({
 
           <div class="column is-narrow">
             <div class="glass-card name-card">
-              <h1 class="title has-text-centered is-size-1  is-family-monospace " style="color: #1a1a1a;">CLEAR-AI</h1>
+              <h1 class="title has-text-centered is-size-1  is-family-monospace" style="color: #1a1a1a;">CLEAR-AI</h1>
               <p class="subtitle" style="color: #444;">Making the World A Cleaner Place</p>
             </div>
           </div>
 
           <div class="column is-narrow">
             <div class="glass-card upload-card">
-              <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
-              <p class="upload-text">Drag and drop an image</p>
-              <button class="button is-light browse-btn">Browse files</button>
+              <button class="button is-light browse-btn">
+              <i class="fa-solid fa-recycle is-size-1"></i>              
+              <h1>Upload Your Image</h1>
+              </button>
+              <p class="upload-text">See How to Dispose of Your Trash</p>
+              
             </div>
           </div>
 
@@ -120,14 +123,21 @@ const dots = Array.from({ length: 60 }, () => ({
   color: #444;
 }
 
+.browse-btn {
+  margin-top: 0.5rem;
+  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: auto;
+  padding: 1.5rem 2rem;
+}
 .upload-text {
   font-size: 14px;
   color: #444;
 }
 
-.browse-btn {
-  margin-top: 0.5rem;
-  background-color: lightgray;
-}
 
 </style>
