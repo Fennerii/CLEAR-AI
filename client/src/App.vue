@@ -40,6 +40,7 @@ function triggerFileInput(){
 // file picker function
 
 async function handleFileChange(event) {
+  console.log("error", event.target.files[0])
   const file = event.target.files[0]
   if (!file) return
 
@@ -177,7 +178,7 @@ async function handleFileChange(event) {
 .name-card {
   width: 380px;
   height: 560px;
-  padding: 2.5rem 2rem;
+  padding: 40px 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -186,12 +187,12 @@ async function handleFileChange(event) {
 .upload-card {
   width: 320px;
   height: 220px;
-  padding: 2rem;
+  padding: 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 12px;
   text-align: center;
 }
 
@@ -201,7 +202,7 @@ async function handleFileChange(event) {
 }
 
 .browse-btn {
-  margin-top: 0.5rem;
+  margin-top: 8px;
   background-color: lightgray;
   display: flex;
   flex-direction: column;
@@ -209,7 +210,7 @@ async function handleFileChange(event) {
   justify-content: center;
   gap: 0.5rem;
   height: auto;
-  padding: 1.5rem 2rem;
+  padding: 24px 32px;
 }
 .upload-text {
   font-size: 14px;
