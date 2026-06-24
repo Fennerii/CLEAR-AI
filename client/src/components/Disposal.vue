@@ -1,4 +1,10 @@
 <script setup>
+defineProps({
+  imageUrl: String,
+  detections: Array,
+  instructions: String
+})
+
 const colors = ["#1b75bc", "#39b54a", "#fbb03b", "#ff1d25", "#4d4d4d", "#754c24", "#ffffff"];
 const dots = Array.from({ length: 60 }, () => ({
   top: Math.random() * 100,
@@ -42,8 +48,23 @@ const dots = Array.from({ length: 60 }, () => ({
               </div>
 
               <div class="chat-body">
-              </div>
 
+                <img v-if="imageUrl" :src="imageUrl" class="uploaded-photo" />
+
+                <div v-if="detections && detections.length" class="detected-list">
+                  <h3 class="section-heading">Detected Items</h3>
+                  <div v-for="(item, i) in detections" :key="i" class="detected-item">
+                    <span>{{ item.label }}</span>
+                    <span class="confidence">{{ Math.round(item.confidence * 100) }}%</span>
+                  </div>
+                </div>
+
+                <div v-if="instructions" class="instructions-text">
+                  <h3 class="section-heading">Disposal Instructions</h3>
+                  <p>{{ instructions }}</p>
+                </div>
+
+              </div>
             </div>
           </div>
         </div>
@@ -128,5 +149,40 @@ const dots = Array.from({ length: 60 }, () => ({
   min-height: 400px;
   max-height: 600px;
   overflow-y: auto;
+}
+
+.uploaded-photo {
+  max-width: 250px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-heading {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  margin-top: 16px;
+}
+
+.detected-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #ddd;
+  color: #333;
+}
+
+.confidence {
+  color: #777;
+}
+
+.instructions-text p {
+  color: #333;
+  line-height: 1.6;
+  white-space: pre-line;
 }
 </style>
