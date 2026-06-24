@@ -1,7 +1,5 @@
 <script setup>
-
 const colors = ["#1b75bc", "#39b54a", "#fbb03b", "#ff1d25", "#4d4d4d", "#754c24", "#ffffff"];
-
 const dots = Array.from({ length: 60 }, () => ({
   top: Math.random() * 100,
   left: Math.random() * 100,
@@ -32,21 +30,31 @@ const dots = Array.from({ length: 60 }, () => ({
     <div class="hero-body">
       <div class="container">
         <div class="columns is-vcentered is-centered cards-row">
-
           <div class="column is-narrow">
             <div class="glass-card chat-box">
+
+              <div class="top-bar">
+                <span class="chat-title">Talking with CLEAR-AI</span>
+                <button class="upload-btn">
+                  <span style="color: black;">Upload Another</span>
+                  <i class="fa-solid fa-upload is-size-4"></i>
+                </button>
+              </div>
+
+              <div class="chat-body">
+              </div>
+
             </div>
           </div>
         </div>
-          </div>
-        </div>
+      </div>
+    </div>
   </section>
 </template>
 
 <style scoped>
-
 .particle-bg {
-  background-color: #ffffff;  
+  background-color: #ffffff;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -73,60 +81,52 @@ const dots = Array.from({ length: 60 }, () => ({
   100% { transform: translate(0, 0); }
 }
 
-.cards-row {
-  position: relative;
-  z-index: 1;
-}
-
 .glass-card {
   backdrop-filter: blur(20px);
   background: rgba(255, 255, 255, 0.35);
-  border: 2px solid  	#9daecc;
+  border: 2px solid #9daecc;
   border-radius: 24px;
   box-shadow: 0 4px 12px #01050b;
 }
 
 .chat-box {
-  width: 950px;
-  height: 750px;
-  padding: 2.5rem 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  width: 910px;
+  box-sizing: border-box;
+  padding: 0;
+  height: 900px;
 }
 
-.upload-card {
-  width: 320px;
-  height: 220px;
-  padding: 2rem;
+.top-bar {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  text-align: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #9daecc;
+  padding: 16px 24px;
 }
 
-.upload-icon {
-  font-size: 36px;
-  color: #444;
+.chat-title {
+  font-weight: 600;
+  color: #1a1a1a;
 }
 
-.browse-btn {
-  margin-top: 0.5rem;
-  background-color: lightgray;
+.upload-btn {
+  flex-shrink: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
-  height: auto;
-  padding: 1.5rem 2rem;
-}
-.upload-text {
-  font-size: 14px;
-  color: #444;
+  box-sizing: border-box;
+  border-radius: 999px;
+  border: 1px solid grey;
+  padding: 10px 18px;
+  white-space: nowrap;
+  background-color: lightgray;
+  cursor: pointer;
 }
 
-
+.chat-body {
+  padding: 24px;
+  min-height: 400px;
+  max-height: 600px;
+  overflow-y: auto;
+}
 </style>
