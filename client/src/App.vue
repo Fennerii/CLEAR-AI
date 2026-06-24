@@ -39,7 +39,32 @@ function triggerFileInput(){
 }
 // file picker function
 
+async function handleFileChange(event) {
+  const file = event.target.files[0]
+  if (!file) return
 
+  uploadedImage.value = URL.createObjectURL(file)
+  isLoading.value = true
+
+  const formData = new FormData()
+  formData.append('file', file)
+
+  try {
+    const response = await fetch('http://localhost:8000/detect', {
+      method: 'POST',
+      body: formData
+    })
+    const data = await response.json()
+
+    detections.value = data.detections
+    instructions.value = data.instructions
+    hasUploaded.value = true
+  } catch (error) {
+    console.error('Upload failed:', error)
+  } finally {
+    isLoading.value = false
+  }
+}
 
 
 </script>
@@ -67,19 +92,30 @@ function triggerFileInput(){
 
           <div class="column is-narrow">
             <div class="glass-card name-card">
-              <h1 class="title has-text-centered is-size-1  is-family-monospace" style="color: #1a1a1a;">CLEAR-AI</h1>
+              <h1 class="title has-text-centered is-size-1 is-family-monospace" style="color: #1a1a1a;">CLEAR-AI</h1>
               <p class="subtitle" style="color: #444;">Making the World A Cleaner Place</p>
             </div>
           </div>
 
           <div class="column is-narrow">
             <div class="glass-card upload-card">
-              <button class="button is-light browse-btn">
-              <i class="fa-solid fa-recycle is-size-1"></i>              
-              <h1>Upload Your Image</h1>
+
+              <!-- hidden file input, triggered by the visible button below -->
+              <input
+                type="file"
+                ref="fileInput"
+                accept="image/*"
+                @change="handleFileChange"
+                hidden
+              />
+
+              <!-- visible custom button, clicking it opens the hidden file picker -->
+              <button class="button is-light browse-btn" @click="triggerFileInput">
+                <i class="fa-solid fa-recycle is-size-1"></i>
+                <h1>Upload Your Image</h1>
               </button>
+
               <p class="upload-text">See How to Dispose of Your Trash</p>
-              
             </div>
           </div>
 
@@ -87,9 +123,14 @@ function triggerFileInput(){
       </div>
     </div>
   </section>
- <Disposal />
-</template>
 
+  <Disposal
+    v-if="hasUploaded"
+    :imageUrl="uploadedImage"
+    :detections="detections"
+    :instructions="instructions"
+  />
+</template>
 <style scoped>
 
 .particle-bg {
