@@ -87,6 +87,12 @@ After training, copy the best model to the server folder:
 cp runs/detect/train_full/weights/best.pt server/best.pt
 ```
 
+## AMD Fix
+```
+pip uninstall torch torchvision -y
+pip install torch torchvision --index-url https://download.pytorch.org/whl/rocm6.2
+
+```
 ---
 
 ## Run the App
