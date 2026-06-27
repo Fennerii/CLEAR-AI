@@ -37,7 +37,7 @@ const isLoading = ref(false)
 function triggerFileInput(){
     fileInput.value.click()
 }
-// file picker function
+// file picker 
 
 async function handleFileChange(event) {
   console.log("error", event.target.files[0])
