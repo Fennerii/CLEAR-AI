@@ -4,5 +4,4 @@ __pycache__/
 !best.pt
 .env
 runs/
-datasets/
 venv/
