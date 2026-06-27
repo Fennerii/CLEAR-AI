@@ -12,7 +12,7 @@ from ultralytics import YOLO #Imports YOLO from ultralytics.
 # || End of Imports ||
 
 # || Start of Model ||
-model = YOLO("best.pt") #Trained Model that we assign to the model variable
+model = YOLO("10kbot.pt") #Trained Model that we assign to the model variable
 # || End of Model || 
 
 # || Start of Logic ||
