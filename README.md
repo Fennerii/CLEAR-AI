@@ -125,16 +125,10 @@ CLEAR-AI will detect it and tell you how to dispose of it.
 
 ---
 
-## Classes
+## WIP
+VR Integration
 
-The model detects the following items:
 
-- `closed box`
-- `colored plastic bottle`
-- `open box`
-- `paper`
-- `plastic bottle`
-- `plastic-bags`
 - `plastic-bottles`
 - `straw`
 - `tuna`
