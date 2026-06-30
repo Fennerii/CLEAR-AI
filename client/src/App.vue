@@ -130,6 +130,7 @@ async function handleFileChange(event) {
     :imageUrl="uploadedImage"
     :detections="detections"
     :instructions="instructions"
+    @uploadAnother="triggerFileInput"
   />
 </template>
 <style scoped>
