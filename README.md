@@ -12,6 +12,7 @@ An AI-powered pollution prevention and waste-sorting tool for community and heal
 - Node.js 22+
 - Ollama
 - Webcam (for live detection)
+- Headset for VR Integration
 
 ---
 
