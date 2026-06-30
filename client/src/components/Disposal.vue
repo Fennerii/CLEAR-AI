@@ -5,6 +5,8 @@ defineProps({
   instructions: String
 })
 
+const emit = defineEmits(['uploadAnother'])
+
 const colors = ["#1b75bc", "#39b54a", "#fbb03b", "#ff1d25", "#4d4d4d", "#754c24", "#ffffff"];
 const dots = Array.from({ length: 60 }, () => ({
   top: Math.random() * 100,
@@ -41,7 +43,7 @@ const dots = Array.from({ length: 60 }, () => ({
 
               <div class="top-bar">
                 <span class="chat-title">Talking with CLEAR-AI</span>
-                <button class="upload-btn">
+                <button class="upload-btn" @click="emit('uploadAnother')">
                   <span style="color: black;">Upload Another</span>
                   <i class="fa-solid fa-upload is-size-4"></i>
                 </button>
