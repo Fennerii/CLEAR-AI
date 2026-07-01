@@ -1,0 +1,12 @@
+train: /home/fennerii/code/CLEAR-AI/datasets/combined/train/images
+val: /home/fennerii/code/CLEAR-AI/datasets/combined/valid/images
+test: /home/fennerii/code/CLEAR-AI/datasets/combined/test/images
+
+nc: 24
+names: ['Bandage', 'General', 'Glove', 'Infectious', 'Iv_Bottle', 'Mask', 'Pathological', 'Sharps', 'Syringe', 'battery', 'cardboard', 'clothes', 'cotton', 'cup', 'glass', 'metal', 'miscellaneous trash', 'organic', 'paper', 'pill_Strip', 'plastic', 'plastic-bottle', 'shoes', 'tin can']
+roboflow:
+  workspace: jonathanfennerii-gmail-com
+  project: clear-beta-v-1
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/jonathanfennerii-gmail-com/clear-beta-v-1/dataset/2

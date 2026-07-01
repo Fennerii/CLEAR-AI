@@ -2,7 +2,6 @@ ultralytics
 opencv-python
 ollama
 fastapi
-fastapi
 uvicorn
 langchain
 langchain-ollama
