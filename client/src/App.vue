@@ -101,7 +101,6 @@ async function handleFileChange(event) {
           <div class="column is-narrow">
             <div class="glass-card upload-card">
 
-              <!-- hidden file input, triggered by the visible button below -->
               <input
                 type="file"
                 ref="fileInput"
@@ -110,7 +109,6 @@ async function handleFileChange(event) {
                 hidden
               />
 
-              <!-- visible custom button, clicking it opens the hidden file picker -->
               <button class="button is-light browse-btn" @click="triggerFileInput">
                 <i class="fa-solid fa-recycle is-size-1"></i>
                 <h1>Upload Your Image</h1>
@@ -126,7 +124,7 @@ async function handleFileChange(event) {
   </section>
 
   <Disposal
-    v-if="hasUploaded"
+    #v-if="hasUploaded"
     :imageUrl="uploadedImage"
     :detections="detections"
     :instructions="instructions"
