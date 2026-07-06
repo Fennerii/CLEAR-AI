@@ -124,7 +124,7 @@ async function handleFileChange(event) {
   </section>
 
   <Disposal
-    #v-if="hasUploaded"
+    v-if="hasUploaded"
     :imageUrl="uploadedImage"
     :detections="detections"
     :instructions="instructions"

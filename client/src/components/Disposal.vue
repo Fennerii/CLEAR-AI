@@ -1,5 +1,7 @@
 <script setup>
-defineProps({
+import { watch } from 'vue'
+
+const props = defineProps({
   imageUrl: String,
   detections: Array,
   instructions: String
@@ -16,6 +18,20 @@ const dots = Array.from({ length: 60 }, () => ({
   duration: 8 + Math.random() * 12,
   delay: Math.random() * -20
 }))
+
+
+watch(() => props.instructions, async (text) => {
+  if (!text) return
+  const res = await fetch('http://localhost:8000/speak', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text })
+  })
+  const blob = await res.blob()
+  const url = URL.createObjectURL(blob)
+  const audio = new Audio(url)
+  audio.play()
+})
 </script>
 
 <template>
@@ -50,7 +66,6 @@ const dots = Array.from({ length: 60 }, () => ({
               </div>
 
               <div class="chat-body">
-
                 <img v-if="imageUrl" :src="imageUrl" class="uploaded-photo" />
 
                 <div v-if="detections && detections.length" class="detected-list">
@@ -64,6 +79,10 @@ const dots = Array.from({ length: 60 }, () => ({
                 <div v-if="instructions" class="instructions-text">
                   <h3 class="section-heading">Disposal Instructions</h3>
                   <p>{{ instructions }}</p>
+
+                  <div class="mascot-container">
+                  <img src="/mascot.png" class="mascot" alt="CLEAR-AI mascot" />
+                  </div>
                 </div>
 
               </div>
@@ -186,5 +205,22 @@ const dots = Array.from({ length: 60 }, () => ({
   color: #333;
   line-height: 1.6;
   white-space: pre-line;
+}
+
+.chat-box {
+  position: relative; /* add this if not already there */
+}
+
+.mascot-container {
+  position: absolute;
+  bottom: -60px;
+  right: -40px;
+  z-index: 10;
+  transform: scaleX(-1); /* flips him so he faces left, pointing at the content */
+}
+
+.mascot {
+  width: 120px;
+  height: auto;
 }
 </style>
