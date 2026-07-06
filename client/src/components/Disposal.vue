@@ -30,6 +30,7 @@ watch(() => props.instructions, async (text) => {
   const blob = await res.blob()
   const url = URL.createObjectURL(blob)
   const audio = new Audio(url)
+  audio.playbackRate = 1.5
   audio.play()
 })
 </script>
