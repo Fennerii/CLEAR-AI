@@ -1,7 +1,8 @@
 <script setup>
+import { ref } from 'vue'
 import Disposal from './components/Disposal.vue'
 
-const colors = ["#1b75bc", "#39b54a", "#fbb03b", "#ff1d25", "#4d4d4d", "#754c24", "#ffffff"];
+const colors = ["#1b75bc", "#39b54a", "#fbb03b", "#ff1d25", "#4d4d4d", "#754c24", "#ffffff"]
 
 const dots = Array.from({ length: 60 }, () => ({
   top: Math.random() * 100,
@@ -12,40 +13,21 @@ const dots = Array.from({ length: 60 }, () => ({
   delay: Math.random() * -20
 }))
 
-import {ref} from 'vue'
-// Imports Vue ref function, Ref watches for refreshes and re-renders
-// Docs: https://vuejs.org/api/reactivity-core.html#ref
-
 const fileInput = ref(null)
-//Creates a const variable that is set to null, it holds a reference to input file
-
+const cameraInput = ref(null)
 const hasUploaded = ref(false)
-// Conontrols when Disposal.vue shows up in the template. Boolean
-
 const uploadedImage = ref(null)
-//Holds the img until we can display it with the <img> tag
-
 const detections = ref([])
-// Holds Data from Detections in the back end
-
 const instructions = ref('')
-//empty string to be filled in with ollama
-
 const isLoading = ref(false)
-//Boolean to track whether a request is loading ^add a spinny wheel or smth^
-
-function triggerFileInput(){
-    fileInput.value.click()
-}
-// file picker 
 
 async function handleFileChange(event) {
-  console.log("error", event.target.files[0])
   const file = event.target.files[0]
   if (!file) return
 
   uploadedImage.value = URL.createObjectURL(file)
   isLoading.value = true
+  hasUploaded.value = false
 
   const formData = new FormData()
   formData.append('file', file)
@@ -56,7 +38,6 @@ async function handleFileChange(event) {
       body: formData
     })
     const data = await response.json()
-
     detections.value = data.detections
     instructions.value = data.instructions
     hasUploaded.value = true
@@ -67,7 +48,13 @@ async function handleFileChange(event) {
   }
 }
 
+function triggerFileInput() {
+  fileInput.value.click()
+}
 
+function triggerCamera() {
+  cameraInput.value.click()
+}
 </script>
 
 <template>
@@ -101,7 +88,7 @@ async function handleFileChange(event) {
           <div class="column is-narrow">
             <div class="glass-card upload-card">
 
-              <!-- hidden file input, triggered by the visible button below -->
+              <!-- File picker input -->
               <input
                 type="file"
                 ref="fileInput"
@@ -110,11 +97,34 @@ async function handleFileChange(event) {
                 hidden
               />
 
-              <!-- visible custom button, clicking it opens the hidden file picker -->
-              <button class="button is-light browse-btn" @click="triggerFileInput">
-                <i class="fa-solid fa-recycle is-size-1"></i>
-                <h1>Upload Your Image</h1>
-              </button>
+              <!-- Camera input -->
+              <input
+                type="file"
+                ref="cameraInput"
+                accept="image/*"
+                capture="environment"
+                @change="handleFileChange"
+                hidden
+              />
+
+              <!-- Loading state -->
+              <div v-if="isLoading" class="loading-text">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                Analyzing...
+              </div>
+
+              <!-- Upload buttons -->
+              <div v-else class="button-group">
+                <button class="button is-light browse-btn" @click="triggerFileInput">
+                  <i class="fa-solid fa-recycle is-size-1"></i>
+                  <h1>Upload Image</h1>
+                </button>
+
+                <button class="button is-light browse-btn" @click="triggerCamera">
+                  <i class="fa-solid fa-camera is-size-1"></i>
+                  <h1>Take Photo</h1>
+                </button>
+              </div>
 
               <p class="upload-text">See How to Dispose of Your Trash</p>
             </div>
@@ -133,10 +143,10 @@ async function handleFileChange(event) {
     @uploadAnother="triggerFileInput"
   />
 </template>
-<style scoped>
 
+<style scoped>
 .particle-bg {
-  background-color: #ffffff;  
+  background-color: #ffffff;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -171,7 +181,7 @@ async function handleFileChange(event) {
 .glass-card {
   backdrop-filter: blur(20px);
   background: rgba(255, 255, 255, 0.35);
-  border: 2px solid  	#9daecc;
+  border: 2px solid #9daecc;
   border-radius: 24px;
   box-shadow: 0 4px 12px #01050b;
 }
@@ -187,7 +197,7 @@ async function handleFileChange(event) {
 
 .upload-card {
   width: 320px;
-  height: 220px;
+  height: 280px;
   padding: 32px;
   display: flex;
   flex-direction: column;
@@ -197,13 +207,15 @@ async function handleFileChange(event) {
   text-align: center;
 }
 
-.upload-icon {
-  font-size: 36px;
-  color: #444;
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  align-items: center;
 }
 
 .browse-btn {
-  margin-top: 8px;
   background-color: lightgray;
   display: flex;
   flex-direction: column;
@@ -211,12 +223,20 @@ async function handleFileChange(event) {
   justify-content: center;
   gap: 0.5rem;
   height: auto;
-  padding: 24px 32px;
+  padding: 16px 32px;
+  width: 100%;
 }
+
 .upload-text {
   font-size: 14px;
   color: #444;
 }
 
-
+.loading-text {
+  font-size: 16px;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 </style>
