@@ -1,5 +1,5 @@
 # || Start of Imports ||
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, Request
 # Imports three things from FastAPI:
 # FastAPI    -> the main application class, everything attaches to this
 # File       -> tells FastAPI to expect a file in the incoming request
@@ -20,6 +20,12 @@ from detector import detect_image
 from disposal import get_disposal_instructions
 # Imports the get_disposal_instructions function from disposer.py
 # This connects main.py to the RAG / Ollama logic for generating disposal instructions.
+
+from fastapi.responses import FileResponse   
+from gtts import gTTS
+import tempfile
+##TTS
+
 # || End of Imports ||
 
 
@@ -59,6 +65,8 @@ def root():
 # POST is used here (not GET) because Vue is sending data — an image file —
 # not just requesting information.
 # Docs: https://fastapi.tiangolo.com/tutorial/request-files/
+
+
 
 async def detect(file: UploadFile = File(...)):
     # Defines the function that handles requests to /detect.
@@ -102,4 +110,19 @@ async def detect(file: UploadFile = File(...)):
     #   "instructions": "Place the plastic bottle in the recycling bin after..."
     # }
     # Docs: https://fastapi.tiangolo.com/tutorial/response-model/
+
+# Registers a route that responds to POST requests at /detect.
+# POST is used here (not GET) because Vue is sending data — an image file —
+# not just requesting information.
+# Docs: https://fastapi.tiangolo.com/tutorial/request-files/
+
+@app.post("/speak")
+async def speak(request: Request):
+    body = await request.json()
+    text = body.get("text", "")
+    tts = gTTS(text)
+    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
+    tts.save(tmp.name)
+    return FileResponse(tmp.name, media_type="audio/mpeg")
+
 # || End of Routes ||

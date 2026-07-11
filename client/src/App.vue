@@ -88,7 +88,10 @@ function triggerCamera() {
           <div class="column is-narrow">
             <div class="glass-card upload-card">
 
+<<<<<<< HEAD
               <!-- File picker input -->
+=======
+>>>>>>> 7cee4fd0dccee5018fb468e358aabb04a44ccee4
               <input
                 type="file"
                 ref="fileInput"
@@ -97,6 +100,7 @@ function triggerCamera() {
                 hidden
               />
 
+<<<<<<< HEAD
               <!-- Camera input -->
               <input
                 type="file"
@@ -125,6 +129,12 @@ function triggerCamera() {
                   <h1>Take Photo</h1>
                 </button>
               </div>
+=======
+              <button class="button is-light browse-btn" @click="triggerFileInput">
+                <i class="fa-solid fa-recycle is-size-1"></i>
+                <h1>Upload Your Image</h1>
+              </button>
+>>>>>>> 7cee4fd0dccee5018fb468e358aabb04a44ccee4
 
               <p class="upload-text">See How to Dispose of Your Trash</p>
             </div>
